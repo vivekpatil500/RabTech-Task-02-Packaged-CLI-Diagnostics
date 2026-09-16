@@ -1,0 +1,45 @@
+{
+  "tool": "rabtech-cli-diagnostics",
+  "version": "1.0.0",
+  "path": "C:\\Users\\vivek\\Downloads\\RabTech-Task-02-Packaged-CLI-Diagnostics-Complete\\RabTech-Task-02-Packaged-CLI-Diagnostics",
+  "checks": [
+    {
+      "name": "python_version",
+      "status": "PASS",
+      "value": "3.14.3",
+      "message": "Python 3.14.3 (minimum 3.9)"
+    },
+    {
+      "name": "disk_space",
+      "status": "PASS",
+      "value": 281.73,
+      "message": "281.73 GB free (minimum 1 GB)"
+    },
+    {
+      "name": "environment_variables",
+      "status": "PASS",
+      "value": {
+        "checked": [
+          "PATH"
+        ],
+        "missing": []
+      },
+      "message": "All required environment variables are set."
+    },
+    {
+      "name": "developer_tools",
+      "status": "PASS",
+      "value": {
+        "checked": [
+          "python",
+          "git",
+          "pip"
+        ],
+        "missing": []
+      },
+      "message": "All configured developer tools were found on PATH."
+    }
+  ],
+  "overall_status": "HEALTHY",
+  "exit_code": 0
+}

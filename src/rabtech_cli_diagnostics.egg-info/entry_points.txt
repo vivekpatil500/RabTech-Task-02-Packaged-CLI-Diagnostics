@@ -1,0 +1,2 @@
+[console_scripts]
+rabtech-diagnostics = diagnostics.cli:main

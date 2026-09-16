@@ -1,0 +1,165 @@
+Metadata-Version: 2.4
+Name: rabtech-cli-diagnostics
+Version: 1.0.0
+Summary: A deterministic command-line developer-environment diagnostics tool.
+Author: Vivek Patil
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+
+# RabTech Task 02 — Packaged CLI Diagnostics Tool
+
+A small, installable Python command-line tool that inspects a machine and produces a deterministic developer-environment health report.
+
+## Features
+
+- Checks Python version.
+- Checks free disk space for a selected path.
+- Checks required environment variables.
+- Checks configured developer tools available on `PATH`.
+- Produces human-readable text or structured JSON.
+- Supports a JSON configuration file.
+- Uses meaningful exit codes.
+- Includes unit tests for success, missing dependency, and malformed configuration.
+- Includes sample diagnostic-event data and sample reports.
+
+## Project structure
+
+```text
+RabTech-Task-02-Packaged-CLI-Diagnostics/
+├── pyproject.toml
+├── README.md
+├── config/
+│   └── diagnostics.json
+├── reports/
+│   ├── sample-report.json
+│   └── sample-report.txt
+├── sample_data/
+│   └── diagnostic-events.json
+├── src/
+│   └── diagnostics/
+│       ├── __init__.py
+│       ├── cli.py
+│       ├── checks.py
+│       ├── config.py
+│       └── reporter.py
+└── tests/
+    ├── test_success.py
+    ├── test_missing_dependency.py
+    └── test_malformed_config.py
+```
+
+## Requirements
+
+- Python 3.9 or newer
+- No third-party runtime dependencies
+
+## Windows installation
+
+Open PowerShell in the project folder:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install .
+```
+
+If PowerShell blocks activation, run the CLI directly with:
+
+```powershell
+.\.venv\Scripts\python.exe -m diagnostics.cli
+```
+
+## Usage
+
+Run the default health check:
+
+```powershell
+rabtech-diagnostics
+```
+
+JSON output:
+
+```powershell
+rabtech-diagnostics --format json
+```
+
+Use a custom configuration:
+
+```powershell
+rabtech-diagnostics --config config/diagnostics.json
+```
+
+Write a report to a file:
+
+```powershell
+rabtech-diagnostics --output reports/my-report.json --format json
+```
+
+Check a different disk path:
+
+```powershell
+rabtech-diagnostics --path C:\
+```
+
+Show help:
+
+```powershell
+rabtech-diagnostics --help
+```
+
+## Configuration
+
+`config/diagnostics.json` contains:
+
+- minimum Python version
+- minimum free disk space
+- environment variables to check
+- developer commands to check
+
+Example:
+
+```json
+{
+  "min_python": "3.9",
+  "min_free_disk_gb": 1,
+  "required_env": ["PATH"],
+  "developer_tools": ["python", "git", "pip"]
+}
+```
+
+A malformed JSON configuration causes exit code `2`.
+
+## Exit codes
+
+| Code | Meaning |
+|---:|---|
+| 0 | Diagnostics completed and all configured checks passed |
+| 1 | Diagnostics completed but one or more health checks failed |
+| 2 | Invalid or malformed configuration / usage error |
+
+## Unit tests
+
+Run:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+The tests cover:
+
+1. Successful diagnostics.
+2. Missing developer dependency.
+3. Malformed configuration.
+
+## Deterministic design
+
+The tool avoids network calls and random values. Its result is based only on the current machine and the supplied configuration. This makes the logic easy to test and reproduce.
+
+## Sample data
+
+`sample_data/diagnostic-events.json` contains the diagnostic events supplied for the internship task. The file is retained as sample input/reference data.
+
+## Author
+
+Vivek Patil — RabTech Academy Python Software Engineering Internship, Batch SEP-2026.
